@@ -81,12 +81,26 @@
         <hr>
 
         <!-- Preview Image -->
-        <img class="img-fluid rounded" src="{{ post.head_image.url }}" alt="" width=900px height=300px>
+        {% if p.head_image %}
+            <img class="card-img-top" src="{{ p.head_image.url }}" alt="Card image cap">   
+        {% else %}
+            <p>이미지가 없습니다!</p>                 
+        {% endif %}
 
         <hr>
 
         <!-- Post Content -->
         <p>{{ post.content }}</p>
+
+        <a href="{{ post.file_upload.url }}" class="btn btn-outline-primary">
+          첨부파일 다운로드
+        </a>
+        
+        <!-- blog/files/2023/03/28/문화와_복식_1주차.pdf -->
+        <!-- <p>{{ post.file_upload.name }}</p> -->
+
+        <p>{{ post.get_file_name }}</p>
+        <!-- 문화와_복식_1주차.pdf -->
         <hr>
 
         <!-- Comments Form -->

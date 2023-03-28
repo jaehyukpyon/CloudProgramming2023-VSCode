@@ -90,10 +90,16 @@
                 {% for p in post_list %}
                 <!-- Blog Post -->
                 <div class="card mb-4">
-                    <img class="card-img-top" src="{{ p.head_image.url }}" alt="Card image cap">
+
+                    {% if p.head_image %}
+                        <img class="card-img-top" src="{{ p.head_image.url }}" alt="Card image cap">   
+                    {% else %}
+                        <p>이미지가 없습니다!</p>                 
+                    {% endif %}
+
                     <div class="card-body">
                         <h2 class="card-title">{{ p.title}}</h2>
-                        <p class="card-text">{{ p.content }}</p>
+                        <p class="card-text">{{ p.content | truncatewords:2 }}</p>
 
                         {% comment %} 추가한부분 {% endcomment %}
                         {% comment %} <p>{{ p.head_image.url }}</p> {% endcomment %}
