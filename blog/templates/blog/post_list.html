@@ -90,10 +90,17 @@
                 {% for p in post_list %}
                 <!-- Blog Post -->
                 <div class="card mb-4">
-                    <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+                    <img class="card-img-top" src="{{ p.head_image.url }}" alt="Card image cap">
                     <div class="card-body">
                         <h2 class="card-title">{{ p.title}}</h2>
                         <p class="card-text">{{ p.content }}</p>
+
+                        {% comment %} 추가한부분 {% endcomment %}
+                        {% comment %} <p>{{ p.head_image.url }}</p> {% endcomment %}
+                        {% comment %} /media/blog/images/2023/03/28/pasta.jpg {% endcomment %}
+
+                        {% comment %} <img src="{{ p.head_image.url }}" width=200px height=200px> {% endcomment %}
+
                         <a href="{{ p.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a>
                     </div>
                     <div class="card-footer text-muted">
