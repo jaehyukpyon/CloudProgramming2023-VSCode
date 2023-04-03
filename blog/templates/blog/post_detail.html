@@ -92,15 +92,19 @@
         <!-- Post Content -->
         <p>{{ post.content }}</p>
 
-        <a href="{{ post.file_upload.url }}" class="btn btn-outline-primary">
-          첨부파일 다운로드
-        </a>
-        
-        <!-- blog/files/2023/03/28/문화와_복식_1주차.pdf -->
-        <!-- <p>{{ post.file_upload.name }}</p> -->
+        {% if post.file_upload %}
+          <a href="{{ post.file_upload.url }}" class="btn btn-outline-primary">
+            첨부파일 다운로드
+          </a>
+          
+          <!-- blog/files/2023/03/28/문화와_복식_1주차.pdf -->
+          <!-- <p>{{ post.file_upload.name }}</p> -->
 
-        <p>{{ post.get_file_name }}</p>
-        <!-- 문화와_복식_1주차.pdf -->
+          <p>{{ post.get_file_name }}</p>
+          <!-- 문화와_복식_1주차.pdf -->
+        {% else %}
+          <p>첨부파일이 없습니다.</p>
+        {% endif %}
         <hr>
 
         <!-- Comments Form -->
