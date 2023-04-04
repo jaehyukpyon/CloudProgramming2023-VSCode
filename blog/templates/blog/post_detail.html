@@ -109,6 +109,16 @@
         {% endif %}
         <hr>
 
+        {% comment %} tag {% endcomment %}
+        {% if post.tag.exists %}
+          <i class="fas fa-tags">
+            태그 목록<br/>
+            {% for tag in post.tag.iterator %}
+              <a href="{{tag.get_absolute_url}}">{{tag}}</a><br />
+            {% endfor %}
+          </i>
+        {% endif %}
+
         <!-- Comments Form -->
         <div class="card my-4">
           <h5 class="card-header">Leave a Comment:</h5>

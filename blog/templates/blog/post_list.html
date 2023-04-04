@@ -14,7 +14,7 @@
         {% endif %}
 
         <div class="card-body">
-            <h2 class="card-title">{{ p.title}}</h2>
+            <h2 class="card-title">{{ p.title }} ({{p.category}})</h2>
             <p class="card-text">{{ p.content | truncatewords:2 }}</p>
 
             {% comment %} 추가한부분 {% endcomment %}
