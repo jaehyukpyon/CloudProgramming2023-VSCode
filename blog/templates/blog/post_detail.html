@@ -83,8 +83,8 @@
         <hr>
 
         <!-- Preview Image -->
-        {% if p.head_image %}
-            <img class="card-img-top" src="{{ p.head_image.url }}" alt="Card image cap">   
+        {% if post.head_image %}
+            <img class="card-img-top" src="{{ post.head_image.url }}" alt="Card image cap">   
         {% else %}
             <p>이미지가 없습니다!</p>                 
         {% endif %}
@@ -92,7 +92,7 @@
         <hr>
 
         <!-- Post Content -->
-        <p>{{ post.content }}</p>
+        <p>{{ post.get_content_markdown | safe }}</p>
 
         {% if post.file_upload %}
           <a href="{{ post.file_upload.url }}" class="btn btn-outline-primary">
@@ -120,7 +120,7 @@
         {% endif %}
 
         {% if user.is_authenticated and user == post.author %}
-          <a href="/blog/post_update/{{ post.pk }}/">글 수정하기</a>
+          <a href="/blog/update_post/{{ post.pk }}/">글 수정하기</a>
         {% endif %}
 
         <!-- Comments Form -->

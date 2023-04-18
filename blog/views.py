@@ -25,6 +25,7 @@ class PostUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'blog/post_update.html'
     
     def dispatch(self, request, *args, **kwargs):
+        print('dispatch2') # 글 수정하려고 html 띄울 때, 글을 실제로 수정할 때
         if request.user.is_authenticated and self.get_object().author == request.user:
             return super(PostUpdate, self).dispatch(request, *args, **kwargs)
         else:
@@ -37,16 +38,28 @@ class PostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     fields = ['title', 'content', 'head_image', 'file_upload', 'category', 'tag']
     
     def test_func(self):
+        # 글 작성 페이지를 보여줄 때, 글을 실제로 작성(post)할 때 둘다 
+        print('test_func')
         return self.request.user.is_staff or self.request.user.is_superuser
     
     def form_valid(self, form):
+        # 글을 실제로 작성할 때만 호출
+        print('form_valid')
         if self.request.user.is_authenticated and (self.request.user.is_superuser or self.request.user.is_staff):
+            print('form', form)
+# print('form.instance', form.instance)
+            print('type(form)', type(form))
+            print('type(form.instance)', type(form.instance))
+# type(form) <class 'django.forms.widgets.PostForm'>
+# type(form.instance) <class 'blog.models.Post'>
             form.instance.author = self.request.user
             return super(PostCreate, self).form_valid(form)
         else:
             return redirect('/blog/')
     
     def get_context_data(self, *, object_list=None, **kwargs):
+        # 글 작성을 위한 form(html)을 보여줄때만 호출
+        print('get_context_data')
         context = super(PostCreate, self).get_context_data()
         context['categories'] = Category.objects.all()
         context['no_category_count'] = Post.objects.filter(category=None).count()

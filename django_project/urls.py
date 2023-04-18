@@ -17,11 +17,13 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.urls import path, include
 from . import settings
+from markdownx import urls as markdownx
 
 urlpatterns = [
     path('blog/', include('blog.urls')),
     path('admin/', admin.site.urls),
     path('', include('single_pages.urls')),
+    path('markdownx/', include(markdownx)),
 ]
 
 # http://localhost:8000/media/blog/images/2023/03/28/pasta.jpg

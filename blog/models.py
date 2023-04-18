@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 import os
+from markdownx.models import MarkdownxField
+from markdownx.utils import markdown
 
 class Tag(models.Model):
     name = models.CharField(max_length=20, unique=True)
@@ -29,7 +31,10 @@ class Category(models.Model):
 # Create your models here.
 class Post(models.Model):
     title = models.CharField(max_length=30)
-    content = models.TextField()
+    
+    # content = models.TextField()
+    content = MarkdownxField()
+    
     head_image = models.ImageField(blank=True, upload_to='blog/images/%Y/%m/%d')
     # head_image = models.ImageField(blank=True)
     
@@ -40,7 +45,7 @@ class Post(models.Model):
     
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
     
-    category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
+    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
     
     # tag를 지운다고 해서 post 에 영향이 갈 필요가 없다. 기본으로 null=True
     tag = models.ManyToManyField(Tag)
@@ -54,5 +59,5 @@ class Post(models.Model):
     def get_file_name(self):
         return os.path.basename(self.file_upload.name)
     
-
-
+    def get_content_markdown(self):
+        return markdown(self.content)

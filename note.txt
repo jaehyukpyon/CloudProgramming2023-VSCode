@@ -1,2 +1,6 @@
 null은 db에 저장될 때 Category 에 있는 엔티티가 없어도 상관없어?
 blank는 프론트에서 넘어올 때 
+
+Post.objects.create할 때 
+post1 = Post.objects.create(title='testtitle1', content='testcontent1', author=user1)
+이런식으로 해도 db에 잘 들어간다.
